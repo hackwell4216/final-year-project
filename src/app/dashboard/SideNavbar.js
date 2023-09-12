@@ -12,6 +12,7 @@ import {
 import { CgProfile } from "react-icons/cg";
 import { FaRegComments } from "react-icons/fa";
 import { BiMessageSquareDots } from "react-icons/bi";
+import Link from "next/link";
 
 function SideNavbar() {
     return (
@@ -32,11 +33,13 @@ function SideNavbar() {
                                     Dashboard
                                 </h3>
                             </div>
-                            <div className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
+                            <div  className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
                                 <CgProfile className="text-2xl text-gray-600 group-hover:text-white " />
-                                <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
+                               <Link href="/profile">
+                               <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
                                     Profile
                                 </h3>
+                               </Link>
                             </div>
                             <div className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
                                 <FaRegComments className="text-2xl text-gray-600 group-hover:text-white " />
