@@ -16,10 +16,10 @@ export default function LoginPage(){
     }
 
     return (
-        <div className="my-2  p-5 overflow-hidden rounded shadow-lg bg-gray-600 w-96 flex justify-center items-center ml-10">
-            <form className="flex flex-col">
-                <h1 className="mb-2 text-xl font-bold">Group Buy</h1>
-                <h3 className="mb-2 text-xl font-semi-bold">Create your Account</h3>
+        <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-blue-950">
+            <form className="flex flex-col bg-gray-700 p-4 rounded-md shadow-md shadow-gray-500">
+                <h1 className="mb-2 text-xl font-bold text-center">Group Buy</h1>
+                <h3 className="mb-2 text-xl font-semi-bold text-center">Create your Account</h3>
                 <div>
                     <label className="mb-2" htmlFor="username">
                         Username:
@@ -66,7 +66,7 @@ export default function LoginPage(){
                 <div>
                     <button 
                         onClick={onSignup}
-                        className="px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
+                        className="px-4 py-2 font-bold text-white bg-blue-500 rounded-md hover:bg-blue-700 flex items-stretch"
                         type="submit">Create Account</button>
                 </div>
             </form>
