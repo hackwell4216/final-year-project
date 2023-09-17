@@ -27,7 +27,7 @@ export default function LoginPage(){
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-blue-950">
-            <form className="flex flex-col bg-gray-700 p-4 rounded-md shadow-md shadow-gray-500" method="get">
+            <div className="flex flex-col bg-gray-700 p-4 rounded-md shadow-md shadow-gray-500">
                 <h1 className="mb-2 text-xl font-bold text-center">Group Buy</h1>
                 <h3 className="mb-2 text-xl font-semi-bold text-center">Login</h3>
                 <div>
@@ -69,7 +69,7 @@ export default function LoginPage(){
                 <div>
                     <p className="text-white  mt-2">Don't have an account yet? <Link className=" text-blue-500" href="/signup">Create an Acount</Link></p>
                 </div>
-            </form>
+            </div>
         </div>
     )
 }

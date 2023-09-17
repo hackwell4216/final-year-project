@@ -18,8 +18,7 @@ export default function LoginPage(){
     const onSignup = async () => {
         try {
             const response = await axios.post("/api/users/signup", user)
-            console.log("Signup success", response.data);
-            toast.success('User successfully created!');
+            console.log("Signup success", response.data)
             router.push("/login");
         } catch (error: any) {
             toast.error(error.message);
@@ -29,7 +28,7 @@ export default function LoginPage(){
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-blue-950">
-            <form className="flex flex-col bg-gray-700 p-4 rounded-md shadow-md shadow-gray-500" method="get">
+            <div className="flex flex-col bg-gray-700 p-4 rounded-md shadow-md shadow-gray-500">
                 <h1 className="mb-2 text-xl font-bold text-center">Group Buy</h1>
                 <h3 className="mb-2 text-xl font-semi-bold text-center">Create your Account</h3>
                 <div>
@@ -81,7 +80,7 @@ export default function LoginPage(){
                         className="px-4 py-2 font-bold text-white bg-blue-500 rounded-md hover:bg-blue-700 flex items-stretch"
                         type="submit">Create Account</button>
                 </div>
-            </form>
+            </div>
         </div>
     )
 }

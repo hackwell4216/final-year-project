@@ -9,11 +9,11 @@ export default function HomePage() {
     const router = useRouter();
 
     function handleLogin() {
-        router.push('/signin/');
+        router.push('/login');
     }
 
     function handleSignUp() {
-        router.push('/signup/');
+        router.push('/signup');
     }
     return (
         <div className={styles.HomePage}>
