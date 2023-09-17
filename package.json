@@ -32,6 +32,8 @@
     "web3": "^4.1.1"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.3",
+    "@types/jsonwebtoken": "^9.0.2",
     "@types/react-modal": "^3.16.0",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.29",

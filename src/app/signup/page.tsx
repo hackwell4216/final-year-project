@@ -2,9 +2,13 @@
 import Link from "next/link";
 import React from "react";
 import {useRouter} from "next/navigation";
-import axios from "axios";
+import axios, { Axios } from "axios";
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function LoginPage(){
+
+    const router = useRouter();
+
     const [user, setUser] = React.useState({
         email: "",
         password: "",
@@ -12,12 +16,20 @@ export default function LoginPage(){
     })
 
     const onSignup = async () => {
-
+        try {
+            const response = await axios.post("/api/users/signup", user)
+            console.log("Signup success", response.data);
+            toast.success('User successfully created!');
+            router.push("/login");
+        } catch (error: any) {
+            toast.error(error.message);
+            console.log("Signup failed", error.message);
+        }
     }
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-blue-950">
-            <form className="flex flex-col bg-gray-700 p-4 rounded-md shadow-md shadow-gray-500">
+            <form className="flex flex-col bg-gray-700 p-4 rounded-md shadow-md shadow-gray-500" method="get">
                 <h1 className="mb-2 text-xl font-bold text-center">Group Buy</h1>
                 <h3 className="mb-2 text-xl font-semi-bold text-center">Create your Account</h3>
                 <div>
