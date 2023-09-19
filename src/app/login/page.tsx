@@ -1,12 +1,12 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Router } from "next/router";
 
-export default function LoginPage(){
+export default function LoginPage() {
     const router = useRouter();
 
     const [user, setUser] = React.useState({
@@ -16,58 +16,77 @@ export default function LoginPage(){
 
     const onLogin = async () => {
         try {
-           const response = await axios.post("/api/users/login", user);
-           console.log("Login success", response.data);
-           toast.success("Login successful");
+            const response = await axios.post("/api/users/login", user);
+            console.log("Login success", response.data);
+            toast.success("Login successful");
             router.push("/dashboard");
         } catch (error: any) {
             console.log("Login failed", error.message);
         }
     }
 
+    const onForgotPassword = () => {
+
+    }
+
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-blue-950">
-            <div className="flex flex-col bg-gray-700 p-4 rounded-md shadow-md shadow-gray-500">
-                <h1 className="mb-2 text-xl font-bold text-center">Group Buy</h1>
-                <h3 className="mb-2 text-xl font-semi-bold text-center">Login</h3>
-                <div>
-                    <label className="mb-2" htmlFor="username">
-                        Email:
-                        <input 
-                            className="mb-4 py-2 w-80 ml-4 border-b-2 text-gray-800 text-center border-none rounded-md"
-                            type="text" 
-                            name="username" 
-                            id="username" 
-                            placeholder="Enter your email" 
-                            autoComplete="name"
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+            <div
+                className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0"
+            >
+                {/* left side */}
+                <div className="flex flex-col justify-center p-8 md:p-14">
+                    <span className="mb-3 text-4xl font-bold text-blue-700">GroupBuy Hub</span>
+                    <span className="font-light text-gray-600 mb-8">
+                        Welcom back! Please enter your details
+                    </span>
+                    <div className="py-4">
+                        <span className="mb-2 text-md text-gray-700">Email</span>
+                        <input
+                            type="text"
+                            className="w-full p-2 border border-gray-300 rounded-md text-gray-800"
+                            name="email"
+                            id="email"
                             value={user.email}
                             onChange={(e) => setUser({...user, email: e.target.value})}
-                            />
-                    </label>
-                </div>
-                <div>
-                    <label htmlFor="">
-                        Password:
-                        <input 
-                            className="mb-4 py-2 w-80 ml-4 border-b-2  text-gray-800 text-center border-none rounded-md "
-                            type="password" 
-                            name="password" 
-                            id="password" 
-                            placeholder="Enter password"
+                        />
+                    </div>
+                    <div className="py-4">
+                        <span className="mb-2 text-md text-gray-700">Password</span>
+                        <input
+                            type="password"
+                            name="pass"
+                            id="pass"
+                            className="w-full p-2 border border-gray-300 rounded-md text-gray-800"
                             value={user.password}
                             onChange={(e) => setUser({...user, password: e.target.value})}
-                            />
-                    </label>
-                </div>
-                <div>
-                    <button 
+                        />
+                    </div>
+                    <div className="flex justify-between w-full py-4">
+                       
+                        <span className="text-md text-gray-700" onClick={onForgotPassword}>Forgot password?</span>
+        
+                        
+                    </div>
+                    <button
+                        className="w-full bg-blue-900 text-white p-2 rounded-lg mb-6 hover:bg-blue-500 hover:text-white hover:border hover:border-gray-300"
                         onClick={onLogin}
-                        className="px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 flex justify-center"
-                        type="submit">Login
+                    >
+                        Sign in
                     </button>
+                    
+                    <div className="text-center text-gray-500 hover:cursor-pointer ">
+                        Don't have an account?
+                       <span className="font-bold text-black hover:text-blue-600"> <Link href="/signup">Sign up</Link> </span>
+                    </div>
                 </div>
-                <div>
-                    <p className="text-white  mt-2">Don't have an account yet? <Link className=" text-blue-500" href="/signup">Create an Acount</Link></p>
+                 {/* right side */} 
+                <div className="relative">
+                    <img
+                        src="/joined_hands.jpg"
+                        alt="img"
+                        className="w-[450px] h-full hidden rounded-r-2xl md:block object-cover"
+                    />
                 </div>
             </div>
         </div>
