@@ -5,8 +5,45 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Router } from "next/router";
+import Modal from "react-modal";
 
 export default function LoginPage() {
+
+    // whether or not to show the loading dialog
+    const [isLoading, setIsLoading] = React.useState(false);
+
+    // text data to display on loading dialog
+    const [loadedData, setLoadedData] = React.useState("Loging you in...");
+
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            color: "black ",
+        },
+    };
+
+    <Modal
+        isOpen={isLoading}
+        //onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+    >
+        {loadedData}
+    </Modal>
+
+    function openModal() {
+        setIsLoading(true);
+    }
+
+    function closeModal() {
+        setIsLoading(false);
+    }
+
     const router = useRouter();
 
     const [user, setUser] = React.useState({
@@ -16,9 +53,14 @@ export default function LoginPage() {
 
     const onLogin = async () => {
         try {
+            setLoadedData("signing you in...");
+            openModal();
             const response = await axios.post("/api/users/login", user);
             console.log("Login success", response.data);
             toast.success("Login successful");
+            setIsLoading(false);
+            closeModal();
+
             router.push("/dashboard");
         } catch (error: any) {
             console.log("Login failed", error.message);
@@ -48,7 +90,7 @@ export default function LoginPage() {
                             name="email"
                             id="email"
                             value={user.email}
-                            onChange={(e) => setUser({...user, email: e.target.value})}
+                            onChange={(e) => setUser({ ...user, email: e.target.value })}
                         />
                     </div>
                     <div className="py-4">
@@ -59,14 +101,14 @@ export default function LoginPage() {
                             id="pass"
                             className="w-full p-2 border border-gray-300 rounded-md text-gray-800"
                             value={user.password}
-                            onChange={(e) => setUser({...user, password: e.target.value})}
+                            onChange={(e) => setUser({ ...user, password: e.target.value })}
                         />
                     </div>
                     <div className="flex justify-between w-full py-4">
-                       
+
                         <span className="text-md text-gray-700" onClick={onForgotPassword}>Forgot password?</span>
-        
-                        
+
+
                     </div>
                     <button
                         className="w-full bg-blue-900 text-white p-2 rounded-lg mb-6 hover:bg-blue-500 hover:text-white hover:border hover:border-gray-300"
@@ -74,13 +116,13 @@ export default function LoginPage() {
                     >
                         Sign in
                     </button>
-                    
+
                     <div className="text-center text-gray-500 hover:cursor-pointer ">
                         Don't have an account?
-                       <span className="font-bold text-black hover:text-blue-600"> <Link href="/signup">Sign up</Link> </span>
+                        <span className="font-bold text-black hover:text-blue-600"> <Link href="/signup">Sign up</Link> </span>
                     </div>
                 </div>
-                 {/* right side */} 
+                {/* right side */}
                 <div className="relative">
                     <img
                         src="/joined_hands.jpg"
