@@ -18,13 +18,13 @@ To get started with GroupBuy, follow these steps:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/resourcepatron.git
+   git clone https://github.com/hackwell4216/final-year-project.git
    ```
 
 2. **Navigate to the project directory:**
 
    ```bash
-   cd resourcepatron
+   cd final-year-project
    ```
 
 3. **Install dependencies using npm:**
@@ -65,7 +65,7 @@ GroupBuy utilizes a modern technology stack to deliver its functionality:
 
 - **Tailwind CSS:** A utility-first CSS framework for building custom, responsive designs quickly.
 
-- **MongoDB:** A NoSQL database for storing application data.
+- **MongoDB:** A NoSQL database for storing user data.
 
 - **TypeScript:** A statically typed superset of JavaScript for improved code quality and maintainability.
 
@@ -73,7 +73,7 @@ GroupBuy utilizes a modern technology stack to deliver its functionality:
 
 - **MetaMask:** A cryptocurrency wallet extension for Chrome that enables secure transactions.
 
-- **Blockchain Technology:** Leveraged for secure and transparent transactions.
+- **Blockchain Technology:** Leveraged for secure and transparent transactions and records of transactions.
 
 - **Vercel:** A cloud platform for deploying and hosting web applications.
 
