@@ -1,6 +1,6 @@
 # GroupBuy
 
-ResourcePatron is a cutting-edge web application built using Next.js, Tailwind CSS, MongoDB, TypeScript, JavaScript, and deployed on Vercel. It leverages blockchain technology and MetaMask for secure and decentralized transactions. This project serves as a partial requirement for BSC. Computer Science in the University of Energy and Natural Resources, Sunyani, combining a range of modern technologies to create a platform where users can collaboratively pool resources and purchase products with their MetaMask crypto wallet.
+GroupBuy is a cutting-edge web application built using Next.js, Tailwind CSS, MongoDB, TypeScript, JavaScript, and deployed on Vercel. It leverages blockchain technology and MetaMask for secure and decentralized transactions. This project serves as a partial requirement for BSC. Computer Science in the University of Energy and Natural Resources, Sunyani, combining a range of modern technologies to create a platform where users can collaboratively pool resources and purchase products with their MetaMask crypto wallet.
 
 ## Table of Contents
 
@@ -59,7 +59,7 @@ GroupBuy leverages blockchain technology and the MetaMask wallet to ensure secur
 
 ## Tech Stack
 
-ResourcePatron utilizes a modern technology stack to deliver its functionality:
+GroupBuy utilizes a modern technology stack to deliver its functionality:
 
 - **Next.js:** A popular React framework for building efficient and SEO-friendly web applications.
 
