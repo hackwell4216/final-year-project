@@ -89,7 +89,7 @@ GroupBuy utilizes a modern technology stack to deliver its functionality:
 
 5. **Enjoy Discounts:** Benefit from group-based discounts as more users join your group.
 
-ResourcePatron is designed to simplify collaborative purchasing and enhance the user experience with secure and transparent blockchain-based transactions.
+GroupBuy is designed to simplify collaborative purchasing and enhance the user experience with secure and transparent blockchain-based transactions.
 
 ## Contributing
 
