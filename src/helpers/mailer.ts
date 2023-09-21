@@ -23,8 +23,7 @@ export const sendEmail = async({email, emailType, userId}:any) => {
               user: "40a952228d4241",
               pass: "79df5eed047e88"
             }
-            //TODO: add these auth values to .env
-          });
+        });
 
         const mailOptions = {
             from: 'hitesh@gmail.com',

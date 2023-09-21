@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
 import React from "react";
+import styles from '../Home.module.css';
 import { useRouter } from "next/navigation";
 import axios, { Axios } from "axios";
-import toast, { Toaster } from 'react-hot-toast';
+import {toast, Toaster } from 'react-hot-toast';
 
 
-export default function LoginPage() {
+export default function SignupPage() {
 
     const router = useRouter();
 
@@ -18,14 +19,37 @@ export default function LoginPage() {
         idCard: "",
         email: "",
         password: "",
-        username: "",
     })
 
+    const [confirmPassword, setPassword] = React.useState({
+        password: ""
+    })
+
+    const [loading, setIsLoading] = React.useState(false);
+    const [loadingData, setLoadingData] = React.useState('');
+
+    React.useEffect(() => {
+        setIsLoading(true);
+        setLoadingData("Loading page...please wait");
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
+      }, []);
+
+    
+
     const onSignup = async () => {
+        
+        
         try {
-            const response = await axios.post("/api/users/signup", user)
+            setIsLoading(true);
+            setLoadingData('Please wait while your account is being created...');
+            const response = await axios.post("/api/users/signup", user);
             console.log("Signup success", response.data)
-            router.push("/login");
+            router.push("/login"); 
+            toast.success('Your account has been created successfully.');
+            setIsLoading(false);
+           
         } catch (error: any) {
             toast.error(error.message);
             console.log("Signup failed", error.message);
@@ -34,7 +58,15 @@ export default function LoginPage() {
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div
+            { loading ? (
+                <div className={styles.loaderContainer}>
+                <div className={styles.spinner}></div>
+                <p className="ml-10 text-center text-blue-600">
+                  {loadingData}
+                </p>
+              </div>
+            ):(
+                <div
                 className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0"
             >
                 {/* right side  */}
@@ -55,7 +87,10 @@ export default function LoginPage() {
                         <span className="mb-2 text-md text-gray-700">First name</span>
                         <input
                             type="text"
-                            className="w-full p-2 border border-gray-300 rounded-md text-gray-800"
+                            className="w-full p-2 border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                            disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                            invalid:border-pink-500 invalid:text-pink-600
+                            focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                             name="firstname"
                             id="firstname"
                             value={user.firstname}
@@ -67,7 +102,10 @@ export default function LoginPage() {
                         <span className="mb-2 text-md text-gray-700">Last name</span>
                         <input
                             type="text"
-                            className="w-full p-2 border border-gray-300 rounded-md text-gray-800"
+                            className="w-full p-2 border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                            disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                            invalid:border-pink-500 invalid:text-pink-600
+                            focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                             name="lastname"
                             id="lastname"
                             value={user.lastname}
@@ -79,7 +117,10 @@ export default function LoginPage() {
                         <span className="mb-2 text-md text-gray-700">Phone</span>
                         <input
                             type="tel"
-                            className="w-full p-2 border border-gray-300 rounded-md text-gray-800"
+                            className="w-full p-2 border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                            disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                            invalid:border-pink-500 invalid:text-pink-600
+                            focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                             name="phone"
                             id="phone"
                             value={user.phone}
@@ -90,8 +131,11 @@ export default function LoginPage() {
                     <div className="py-2">
                         <span className="mb-2 text-md text-gray-700">Email</span>
                         <input
-                            type="text"
-                            className="w-full p-2 border border-gray-300 rounded-md text-gray-800"
+                            type="email"
+                            className="w-full p-2 border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                            disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                            invalid:border-pink-500 invalid:text-pink-600
+                            focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                             name="email"
                             id="email"
                             value={user.email}
@@ -103,7 +147,10 @@ export default function LoginPage() {
                         <span className="mb-2 text-md text-gray-700">Residential digital address</span>
                         <input
                             type="text"
-                            className="w-full p-2 border border-gray-300 rounded-md text-gray-800"
+                            className="w-full p-2 border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                            disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                            invalid:border-pink-500 invalid:text-pink-600
+                            focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                             name="address"
                             id="address"
                             value={user.address}
@@ -116,9 +163,28 @@ export default function LoginPage() {
                             type="password"
                             name="pass"
                             id="pass"
-                            className="w-full p-2 border border-gray-300 rounded-md text-gray-800"
+                            className="w-full p-2 border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                            disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                            invalid:border-pink-500 invalid:text-pink-600
+                            focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                             value={user.password}
                             onChange={(e) => setUser({ ...user, password: e.target.value })}
+                        />
+                    </div>
+                    <div className="py-2">
+                        <span className="mb-2 text-md text-gray-700">Confirm Password</span>
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            id="confirmPassword"
+                            className="w-full p-2 border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                            disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                            invalid:border-pink-500 invalid:text-pink-600
+                            focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+                            value={user.password}
+                            onChange={(e) => setPassword({ ...confirmPassword, password: e.target.value })}
+                            pattern="/^[a-zA-Z0-9_]{5,}$/"
+                            title="Password must be at least 8 characters and contain alphabets, symbols, and numbers."
                         />
                     </div>
                     <div className="mt-5">
@@ -140,8 +206,9 @@ export default function LoginPage() {
                         <span className="font-bold text-black hover:text-blue-600"> <Link href="/login">Login</Link> </span>
                     </div>
                 </div>
-
+                <Toaster />
             </div>
+            )}
         </div>
     )
 }

@@ -8,14 +8,15 @@ connect() // connect to database
 export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json();
-        const { username, email, password } = reqBody;
+        const { firstname, lastname, phone, address, idCard, email, password } = reqBody;
         console.log(reqBody);
 
         //check if user already exists
         const user = await User.findOne({ email })
 
         if (user) {
-            return NextResponse.json({ error: "User already exits" }, { status: 400 })
+            console.log('User already exists');
+            return NextResponse.json({ error: "User already exits" }, { status: 400 });
         } else {
             //has password
             const salt = await bcryptjs.genSalt(10)
@@ -24,14 +25,19 @@ export async function POST(request: NextRequest) {
 
             //create a new user
             const newUser = new User({
-                username,
+                firstname,
+                lastname,
+                phone,
+                address,
+                idCard,
                 email,
                 password: hashedPassword
             })
 
 
-            const savedUser = await newUser.save()
-            console.log(savedUser);
+            const savedUser = await newUser.save();
+            console.log("User created successfully");
+
 
             return NextResponse.json({
                 message: "User created successfully",
@@ -41,6 +47,7 @@ export async function POST(request: NextRequest) {
         }
 
     } catch (error: any) {
+       
         return NextResponse.json({ error: error.message },
             { status: 500 });
     }
