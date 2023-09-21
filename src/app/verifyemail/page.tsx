@@ -3,6 +3,7 @@
 import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import toast, { Toaster } from 'react-hot-toast'
 
 
 export default function VerifyEmailPage() {
@@ -17,7 +18,7 @@ export default function VerifyEmailPage() {
             setVerified(true);
         } catch (error:any) {
             setError(true);
-            console.log(error.reponse.data);
+            console.log(error.reponse.data!);
             
         }
 

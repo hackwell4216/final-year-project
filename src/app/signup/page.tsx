@@ -46,10 +46,22 @@ export default function SignupPage() {
             setLoadingData('Please wait while your account is being created...');
             const response = await axios.post("/api/users/signup", user);
             console.log("Signup success", response.data)
-            router.push("/login"); 
             toast.success('Your account has been created successfully.');
+            
             setIsLoading(false);
-           
+            toast.success('Check your inbox to verify your account. Thank you!', {
+                style: {
+                  border: '1px solid #0000FF',
+                  padding: '16px',
+                  color: '#000',
+                },
+                iconTheme: {
+                  primary: '#1b8a08',
+                  secondary: '#FFFFFF',
+                },
+                duration: 30000,
+              });
+           router.push("/login"); 
         } catch (error: any) {
             toast.error(error.message);
             console.log("Signup failed", error.message);
@@ -67,18 +79,18 @@ export default function SignupPage() {
               </div>
             ):(
                 <div
-                className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0"
+                className="relative flex flex-col m-8 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0"
             >
                 {/* right side  */}
                 <div className="relative">
                     <img
                         src="/create-account-image.jpg"
                         alt="img"
-                        className="w-[450px] h-full hidden rounded-r-2xl md:block object-cover"
+                        className="w-[650px] h-[500px] hidden mt-24 rounded-r-2xl md:block object-cover"
                     />
                 </div>
                 {/*  left side */}
-                <div className="flex flex-col justify-center p-8 md:p-14">
+                <div className="flex flex-col justify-center p-8 md:p-14 lg:w-2/4">
                     <span className="mb-3 text-4xl font-bold text-blue-700 text-center">GroupBuy Hub</span>
                     <span className="font-light text-gray-600 mb-8">
                         Welcome to GroupBuy Hub. Please provide your details to create your account.

@@ -9,14 +9,18 @@ connect()
 export async function POST(request: NextRequest){
     try {
         const reqBody = await request.json()
-        const {email, password} = reqBody;
+        const {email, password, isVerified} = reqBody;
         console.log(reqBody);
         
         const user = await User.findOne({email});
+        console.log(user);
 
         if (!user) {
             return NextResponse.json({error: "User does not exist"}, {status: 400})
         }
+
+        //check if user if verified
+       
 
         //check if password is correct
         const validPassword = await bcryptjs.compare(password, user.password);

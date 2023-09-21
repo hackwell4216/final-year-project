@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import styles from '../Home.module.css';
+import { HiUserGroup, HiUser } from "react-icons/hi";
 
 function UserProfile() {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -44,12 +45,12 @@ function UserProfile() {
 
   const getUserDetails = async () => {
     try {
-      
+
       const res = await axios.get("/api/users/getUserData");
-     
+
 
       // console.log(res.data);
-     
+
       const updateUserDetails = {
         ...user,
         firstname: res.data.data.firstname,
@@ -58,7 +59,7 @@ function UserProfile() {
         address: res.data.data.address,
         email: res.data.data.email,
       };
-      
+
       setUser(updateUserDetails);
 
     } catch (error: any) {
@@ -72,7 +73,7 @@ function UserProfile() {
   })
 
   return (
-    <div className="min-h-screen  w-screen mx-auto bg-center relative  bg-[url('/Image.png')] bg-cover px-28 py-5">
+    <div className="border bg-cover bg-center bg-gradient-to-r from-violet-600 to-slate-100 min-h-screen ">
       {loading ? (
         <div className={styles.loaderContainer}>
           <div className={styles.spinner}></div>
@@ -81,36 +82,36 @@ function UserProfile() {
           </p>
         </div>
       ) : (
-        <div className="max-w-md mx-auto border border-white rounded-md p-6 mt-10">
+        <div className="max-w-[1000px] mx-auto bg-center relative  bg-[url('/Image.png')] rounded-md p-16 mt-40 mb-40">
+
+          <div>
+            <span className="w-40 cursor-pointer text-2xl font-semibold"><HiUserGroup className="inline-block mr-2 text-6xl text-blue-600 group-hover:text-white " />groupbuy</span>
+          </div>
           <div className="text-center">
-            <img
-              src="/grocery-image.png" // Replace with the actual path to the profile picture
-              alt="Profile Picture"
-              className="w-32 h-32 mx-auto rounded-full"
-            />
+            <HiUser className="w-32 h-32 mx-auto rounded-full"></HiUser>
             <h1 className=" text-left border border-b-white border-t-0 border-l-0 border-r-0 border-b-2 mt-5 mb-3 text-lg">
               Personal Information
             </h1>
 
-            <p className="text-sm mb-5 text-left">
-              <span className="mr-24">First name:</span> {user.firstname}
+            <p className="text-lg mb-5 text-left">
+              <span className="w-40 pr-[210px] ">First name:</span> {user.firstname}
             </p>
-            <p className="text-sm mb-5 text-left">
-              <span className="mr-24">Last name:</span> {user.lastname}
+            <p className="text-lg mb-5 text-left">
+              <span className="w-40 pr-[210px] ">Last name:</span> {user.lastname}
             </p>
-            <p className="text-sm mb-5 text-left">
-              <span className="mr-24">Email:</span> {user.email}
+            <p className="text-lg mb-5 text-left">
+              <span className="w-40 pr-[253px] ">Email:</span> {user.email}
             </p>
-            <p className="text-sm mb-5 text-left">
-              <span className="mr-[100px]">Phone: </span>
+            <p className="text-lg mb-5 text-left">
+              <span className="w-40 pr-[245px] ">Phone: </span>
               {user.phone}
             </p>
-            <p className="text-sm mb-5 text-left">
-              <span className="mr-24">Address: </span>
+            <p className="text-lg mb-5 text-left">
+              <span className="w-40 pr-[230px] ">Address: </span>
               {user.address}
             </p>
-            <p className="text-sm mb-5 text-left">
-              <span className="mr-10">Account Balance:</span> $1000.00
+            <p className="text-lg mb-5 text-left">
+              <span className="w-40 pr-40 ">Account Balance:</span> $1000.00
             </p>
           </div>
 
@@ -120,7 +121,7 @@ function UserProfile() {
             </h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label htmlFor="currentPassword" className="block text-sm mb-2">
+                <label htmlFor="currentPassword" className="block text-lg mb-2">
                   Current Password
                 </label>
                 <input
@@ -134,7 +135,7 @@ function UserProfile() {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="newPassword" className="block text-sm mb-2">
+                <label htmlFor="newPassword" className="block text-lg mb-2">
                   New Password
                 </label>
                 <input
@@ -148,7 +149,7 @@ function UserProfile() {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="confirmPassword" className="block text-sm mb-2">
+                <label htmlFor="confirmPassword" className="block text-lg mb-2">
                   Confirm Password
                 </label>
                 <input
@@ -162,7 +163,7 @@ function UserProfile() {
                 />
               </div>
               {passwordError && (
-                <p className="text-red-500 text-sm mb-4">{passwordError}</p>
+                <p className="text-red-500 text-lg mb-4">{passwordError}</p>
               )}
               <button
                 type="submit"
@@ -178,7 +179,7 @@ function UserProfile() {
               App Peferences
             </h2>
             <div className="flex items-center justify-between">
-              <label className="text-sm">Dark Mode</label>
+              <label className="text-lg">Dark Mode</label>
               <input
                 type="checkbox"
                 className="form-checkbox h-4 w-4 text-blue-500"

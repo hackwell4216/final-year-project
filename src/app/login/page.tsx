@@ -20,7 +20,6 @@ export default function LoginPage() {
   React.useEffect(() => {
     setIsLoading(true);
     setLoadingData("Loading page...please wait");
-
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
@@ -36,7 +35,7 @@ export default function LoginPage() {
       setIsLoading(false);
       toast.success("Login successful");
     } catch (error: any) {
-      toast.error("Email or Password might be incorrect. Refresh page and try again.");
+      toast.error(`${error.message}`);
       console.log("Login failed", error.message);
     }
   };
