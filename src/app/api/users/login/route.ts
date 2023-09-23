@@ -2,14 +2,14 @@ import { connect } from "@/Database/dbConfig";
 import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 
 connect()
 
 export async function POST(request: NextRequest){
     try {
         const reqBody = await request.json()
-        const {email, password, isVerified} = reqBody;
+        const {email, password} = reqBody;
         console.log(reqBody);
         
         const user = await User.findOne({email});
@@ -19,9 +19,7 @@ export async function POST(request: NextRequest){
             return NextResponse.json({error: "User does not exist"}, {status: 400})
         }
 
-        //check if user if verified
-       
-
+      
         //check if password is correct
         const validPassword = await bcryptjs.compare(password, user.password);
 
@@ -30,8 +28,9 @@ export async function POST(request: NextRequest){
         }
 
         console.log('login was successful');
-        //create token data
-        const tokenData = {
+
+         //create token data
+         const tokenData = {
             id: user._id,
             firstname: user.firstname,
             lastname: user.lastname,
@@ -54,6 +53,8 @@ export async function POST(request: NextRequest){
         })
 
         return response;
+
+
 
     } catch (error: any) { 
         return NextResponse.json({error: error.message}, {status: 500})

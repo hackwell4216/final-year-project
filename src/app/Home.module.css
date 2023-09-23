@@ -9,7 +9,7 @@
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
-  background-color: whitesmoke;
+  background: linear-gradient(violet, white);
 }
 
 .walletAddress {
@@ -22,7 +22,7 @@
 .topPanel {
   display: flex;
   justify-content: space-between;
-  background-color: grey;
+  background-color: rgb(82, 20, 82);
   padding-left: 5px
 }
 

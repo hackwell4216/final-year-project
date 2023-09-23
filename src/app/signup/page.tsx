@@ -61,6 +61,9 @@ export default function SignupPage() {
                 },
                 duration: 30000,
               });
+
+              const response2 = await axios.post("/api/users/createToken", user);
+              
            router.push("/login"); 
         } catch (error: any) {
             toast.error(error.message);

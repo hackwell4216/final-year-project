@@ -3,10 +3,12 @@ import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import { sendEmail } from "@/helpers/mailer";
+import axios from "axios";
 
 connect() // connect to database
 
 export async function POST(request: NextRequest) {
+
     try {
         const reqBody = await request.json();
         const { firstname, lastname, phone, address, idCard, email, password } = reqBody;
@@ -41,17 +43,20 @@ export async function POST(request: NextRequest) {
 
 
             //send verification email to user
-            await sendEmail({email, emailType: "VERIFY", userId: savedUser._id})
+            await sendEmail({ email, emailType: "VERIFY", userId: savedUser._id })
 
             return NextResponse.json({
                 message: "User created successfully",
                 success: true,
                 savedUser
             })
+
+
         }
 
+
     } catch (error: any) {
-       
+
         return NextResponse.json({ error: error.message },
             { status: 500 });
     }

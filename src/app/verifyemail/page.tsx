@@ -1,9 +1,12 @@
 "use client";
 
 import axios from "axios";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from 'react-hot-toast'
+import { HiUserGroup } from "react-icons/hi";
+import { useRouter } from "next/navigation";
+import styles from '../Home.module.css';
+
 
 
 export default function VerifyEmailPage() {
@@ -12,50 +15,108 @@ export default function VerifyEmailPage() {
     const [verified, setVerified] = useState(false);
     const [error, setError] = useState(false);
 
+    const [user, setUser] = React.useState({
+        firstname: "",
+    });
+
+    const router = useRouter();
+
+    const [loading, setIsLoading] = React.useState(false);
+    const [loadingData, setLoadingData] = React.useState('');
+
+    React.useEffect(() => {
+        setIsLoading(true);
+        setLoadingData("Loading page...please wait");
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+    }, []);
+
+
     const verifyUserEmail = async () => {
         try {
-            await axios.post('/api/users/verifyemail', {token})
+            await axios.post('/api/users/verifyemail', { token })
             setVerified(true);
-        } catch (error:any) {
+
+        } catch (error) {
             setError(true);
-            console.log(error.reponse.data!);
-            
+            console.log(error);
+
         }
 
     }
 
+    const getUserDetails = async () => {
+        try {
+
+            
+            const response = await axios.get("/api/users/getUserData");
+            
+            const updateUserDetails = {
+                ...user,
+                firstname: response.data.data.firstname,
+
+            };
+
+            setUser(updateUserDetails);
+
+        } catch (error: any) {
+            toast.error("Error fetching user details");
+            console.log("Error fetching user details: ", error);
+        }
+    }
+
+
     useEffect(() => {
         const urlToken = window.location.search.split("=")[1];
-        setToken(urlToken || "");
+        setToken(urlToken || ""); 
+        
+    }, []);
+
+    useEffect(() => {
+        getUserDetails();
+        
     }, []);
 
 
     useEffect(() => {
-        if(token.length > 0) {
+        if (token.length > 0) {
             verifyUserEmail();
         }
     }, [token]);
 
-    return(
-        <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    function activateAccount() {
+       
+            toast.success('Success! Your account is activated.');
+            router.push('/login');
+         
+    }
 
-            <h1 className="text-4xl">Verify Email</h1>
-            <h2 className="p-2 bg-orange-500 text-black">{token ? `${token}` : "no token"}</h2>
+    return (
+        <div className="min-h-screen py-2 bg-gray-800">
+            {loading ? (
+                <div className={styles.loaderContainer}>
+                    <div className={styles.spinner}></div>
+                    <p className="ml-10 text-center text-blue-600">
+                        {loadingData}
+                    </p>
+                </div>
+            ) : (
+                <>
+                    <div>
+                        <span className="w-40 text-2xl font-semibold ml-12 mt-10"><HiUserGroup className="inline-block mr-2 text-6xl text-blue-600 group-hover:text-white " />groupbuy</span>
+                    </div>
+                    <div className="bg-blue-100 rounded-md lg:m-64 h-80 p-6 md:p-3 md:w-[800px] md:mx-auto md:mt-20">
+                        <p className="text-gray-600 text-2xl ml-20">One more step!</p>
+                        <p className="text-gray-600 text-2xl ml-20 mb-10">Let's verify your email address.</p>
+                        <p className="text-gray-600 text-xl ml-20">{`${user.firstname}, to activate your account, simply click on the verification link below.`}</p>
 
-            {verified && (
-                <div>
-                    <h2 className="text-2xl">Email Verified</h2>
-                    <Link href="/login">
-                        Login
-                    </Link>
-                </div>
+                        <div onClick={activateAccount} className="bg-blue-600 w-56 text-center p-4 mx-auto rounded-md font-normal cursor-pointer mt-10">Activate My Account</div>
+
+                    </div>
+                </>
             )}
-            {error && (
-                <div>
-                    <h2 className="text-2xl bg-red-500 text-black">Error</h2>
-                    
-                </div>
-            )}
+            <Toaster />
         </div>
     )
 

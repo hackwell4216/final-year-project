@@ -1,13 +1,13 @@
 "use client"
-import React from "react"
-import GroupBuy from "@/app/dashboard/groupBuy";
-import SideNavbar from "@/app/dashboard/SideNavbar";
+import React from "react";
+import SideNavbar from "./SideNavbar";
+import GroupBuy from "./GroupBuy";
 
-export default function Dashboard(){
+export default function dashboard() {
     return (
-        <div>
+        <>
             <SideNavbar />
             <GroupBuy />
-        </div>
+        </>
     )
-}''
+}
