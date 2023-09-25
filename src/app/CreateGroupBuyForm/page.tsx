@@ -1,9 +1,11 @@
+"use client"
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../Home.module.css";
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Modal from "react-modal";
 import { IoWalletSharp } from "react-icons/io5";
 import { HiUserGroup } from "react-icons/hi";
@@ -46,6 +48,8 @@ export default function Home() {
 
   // text data to display on loading dialog
   const [loadedData, setLoadedData] = useState("Loading...");
+
+  const router = useRouter();
 
   function openModal() {
     setIsLoading(true);
@@ -127,6 +131,7 @@ export default function Home() {
   }
 
   async function createGroupBuy() {
+   
     try {
       //check if required fields are empty
       if (
@@ -197,6 +202,8 @@ export default function Home() {
           productDescription: "",
         });
       }
+
+      router.push('/dashboard');
     } catch (error) {
       console.log(error);
       closeModal();
@@ -363,46 +370,41 @@ export default function Home() {
     }
 
     return (
-      <div className=" w-[800px] mx-auto px-10 py-10 rounded-md mt-10 bg-slate-300 shadow-md shadow-slate-500 ">
+        <div className=" w-[800px] mx-auto px-10 py-10 rounded-md mt-10 bg-slate-300 shadow-md border-2 shadow-slate-500">
         <p className="py-1">
-          <span className="font-bold mr-[70px]">Product Name: </span>{groupBuy.productName}
+            <span className="font-bold mr-[70px]">Product Name: </span>{groupBuy.productName}
         </p>
         <p className="py-1">
-          <span className="font-bold mr-[30px]">Product Description:</span> {groupBuy.productDescription}
+            <span className="font-bold mr-[30px]">Product Description:</span> {groupBuy.productDescription}
         </p>
         <p className="py-1">
-          <span className="font-bold mr-[140px]">Price:</span> {groupBuy.price || 0} USDC
+            <span className="font-bold mr-[140px]">Price:</span> {groupBuy.price || 0} USDC
         </p>
         <p className="py-1">
-          <span className="font-bold mr-[70px]">Seller Address:</span> {groupBuy.seller}
+            <span className="font-bold mr-[70px]">Seller Address:</span> {groupBuy.seller}
         </p>{" "}
         {(() => {
-          if (groupBuy.groupBuyState === 0) {
-            return (
-              <p >
-                Ending in :{" "}
-                {Math.round((groupBuy.endTime * 1000 - Date.now()) / 1000 / 60)}{" "}
-                {/* Time left in minutes */}
-                minutes
-              </p>
-            );
-          }
+            if (groupBuy.groupBuyState === 0) {
+                return (
+                    <p >
+                        Ending in :{" "}
+                        {Math.round((groupBuy.endTime * 1000 - Date.now()) / 1000 / 60)}{" "}
+                        {/* Time left in minutes */}
+                        minutes
+                    </p>
+                );
+            }
         })()}
         <p className="py-1"><span className="font-bold mr-[57px]">Group buy State:</span> {state === 'Ended' ? (<span className="border border-red-600 px-3 py-1 rounded-md bg-red-200">{state}</span>) : (<span className="border border-blue-800 bg-blue-200 px-3 py-1 rounded-md">{state}</span>)}</p>
         <button className="bg-blue-800 text-white py-3 px-5 rounded-md cursor-pointer hover:border-blue-800 hover:border hover:bg-blue-200  hover:text-blue-800"
 
-          onClick={() => {
-            setActiveGroupBuy(groupBuy);
-          }}
+            onClick={() => {
+                setActiveGroupBuy(groupBuy);
+            }}
         >
-          See More
+            See More
         </button>
-
-        <div className="bg-red-600 text-slate-50 h-[70px] w-[200px] md:left-[450px] rounded-md relative flex items-center shadow-md shadow-red-400">
-          <span className="ml-3 text-xl">Discount</span>
-          <span className="ml-4 text-4xl">{`${Math.floor(Math.random() * (20 - 5 + 1)) + 5}%`}</span>
-        </div>
-      </div>
+    </div>
     );
   }
 
@@ -428,128 +430,127 @@ export default function Home() {
     );
 
     return (
-      <div className="border-2 w-[800px] mx-auto mt-10 bg-slate-300 rounded-md px-10 py-10 shadow-slate-500 shadow-md">
+        <div className="border-2 w-[800px] mx-auto mt-10 bg-slate-300 rounded-md px-10 py-10 shadow-slate-500 shadow-md">
         <div>
-          <div>
-            <p className="py-1">
-              <span className="font-bold mr-[170px]">Product Name:</span> {groupBuy.productName || 0}{" "}
-            </p>
-            <p className="py-1">
-              <span className="font-bold mr-[125px]">Product Description:</span> {groupBuy.productDescription || 0}{" "}
-            </p>
-            <p ><span className="font-bold mr-[235px]">Price:</span> {groupBuy.price} USDC</p>{" "}
-            {/* Starting price */}
-            <p className="py-1">
-              <span className="font-bold mr-[235px]">Seller:</span> {groupBuy.seller}
-            </p>{" "}
-            <div className="flex">
-              <p className="py-1">
-                <span className="font-bold mr-[20px]">Groupbuy Smart Contract Address:</span>{" "}
-              </p>
-              <p className="py-1">
-                <Link
-                  href={`https://goerli.etherscan.io/address/${groupBuy.groupBuyAddress}`}
-                  target="_blank"
-                >
-                  {groupBuy.groupBuyAddress}
-                </Link>
-              </p>
+            <div>
+                <p className="py-1">
+                    <span className="font-bold mr-[170px]">Product Name:</span> {groupBuy.productName || 0}{" "}
+                </p>
+                <p className="py-1">
+                    <span className="font-bold mr-[125px]">Product Description:</span> {groupBuy.productDescription || 0}{" "}
+                </p>
+                <p ><span className="font-bold mr-[235px]">Price:</span> {groupBuy.price} USDC</p>{" "}
+                {/* Starting price */}
+                <p className="py-1">
+                    <span className="font-bold mr-[235px]">Seller:</span> {groupBuy.seller}
+                </p>{" "}
+                <div className="flex">
+                    <p className="py-1">
+                        <span className="font-bold mr-[20px]">Groupbuy Smart Contract Address:</span>{" "}
+                    </p>
+                    <p className="py-1">
+                        <Link
+                            href={`https://goerli.etherscan.io/address/${groupBuy.groupBuyAddress}`}
+                            target="_blank"
+                        >
+                            {groupBuy.groupBuyAddress}
+                        </Link>
+                    </p>
+                </div>
+                {(() => {
+                    if (groupBuy.groupBuyState === 0) {
+                        return (
+                            <p className="py-1">
+                                Ending in :{" "}
+                                {Math.round(
+                                    (groupBuy.endTime * 1000 - Date.now()) / 1000 / 60
+                                )}{" "}
+                                {/* Time left in minutes */}
+                                minutes
+                            </p>
+                        );
+                    }
+                })()}
+                <p className="py-1"><span className="font-bold mr-[165px]">Group buy State:</span> {state === 'Ended' ? (<span className="border border-red-600 px-3 py-1 rounded-md bg-red-200">{state}</span>) : (<span className="border border-blue-800 bg-blue-200 px-3 py-1 rounded-md">{state}</span>)}</p>
             </div>
-            {(() => {
-              if (groupBuy.groupBuyState === 0) {
-                return (
-                  <p className="py-1">
-                    Ending in :{" "}
-                    {Math.round(
-                      (groupBuy.endTime * 1000 - Date.now()) / 1000 / 60
-                    )}{" "}
-                    {/* Time left in minutes */}
-                    minutes
-                  </p>
-                );
-              }
-            })()}
-            <p className="py-1"><span className="font-bold mr-[165px]">Group buy State:</span> {state === 'Ended' ? (<span className="border border-red-600 px-3 py-1 rounded-md bg-red-200">{state}</span>) : (<span className="border border-blue-800 bg-blue-200 px-3 py-1 rounded-md">{state}</span>)}</p>
-          </div>
-          <div>
-            <h3 className="font-bold text-black border-b-2 border-black py-5">List of all Buyers</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th
-                    style={{
-                      borderColor: "black",
-                      borderStyle: "groove",
-                      padding: "10px",
-                    }}
-                  >
-                    Buyer
-                  </th>
-                  <th
-                    style={{
-                      borderColor: "black",
-                      borderStyle: "groove",
-                      padding: "10px",
-                    }}
-                  >
-                    Price
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {groupBuy.buyers.map((buyer) => {
-                  return (
-                    <tr key={buyer}>
-                      <td className="border-2 border-black"
-                        style={{
-                          borderColor: "black",
-                          borderStyle: "groove",
-                          padding: "10px",
-                        }}
-                      >
-                        {buyer.toLowerCase()}
-                      </td>
-                      <td className="border-2 border-black">
-                        {groupBuy.price} USDC
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-          <div>
-            {isGroupBuyOpen && !isOwner && !isCurrentUserABuyer ? (
-              <div>
-                <button className="bg-green-800 text-white py-3 px-5 rounded-md cursor-pointer hover:border-green-800 hover:border hover:bg-green-200  hover:text-green-800"
-                  onClick={() => placeOrder(activeGroupBuy)}
+            <div>
+                <h3 className="font-bold text-black border-b-2 border-black py-5">List of all Buyers</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th
+                                style={{
+                                    borderColor: "black",
+                                    borderStyle: "groove",
+                                    padding: "10px",
+                                }}
+                            >
+                                Buyer
+                            </th>
+                            <th
+                                style={{
+                                    borderColor: "black",
+                                    borderStyle: "groove",
+                                    padding: "10px",
+                                }}
+                            >
+                                Price
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {groupBuy.buyers.map((buyer) => {
+                            return (
+                                <tr key={buyer}>
+                                    <td className="border-2 border-black"
+                                        style={{
+                                            borderColor: "black",
+                                            borderStyle: "groove",
+                                            padding: "10px",
+                                        }}
+                                    >
+                                        {buyer.toLowerCase()}
+                                    </td>
+                                    <td className="border-2 border-black">
+                                        {groupBuy.price} USDC
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                {isGroupBuyOpen && !isOwner && !isCurrentUserABuyer ? (
+                    <div>
+                        <button className="bg-green-800 text-white py-3 px-5 rounded-md cursor-pointer hover:border-green-800 hover:border hover:bg-green-200  hover:text-green-800"
+                            onClick={() => placeOrder(activeGroupBuy)}
+                        >
+                            Place Order
+                        </button>
+                    </div>
+                ) : null}
+                <button
+                    className="mt-3 bg-blue-800 text-white py-3 px-5 rounded-md cursor-pointer hover:border-blue-800 hover:border hover:bg-blue-200  hover:text-blue-800"
+                    onClick={() => setGroupBuyToActive(null)}
                 >
-                  Place Order
+                    Go Back
                 </button>
-              </div>
-            ) : null}
-            <button
-              className="mt-3 bg-blue-800 text-white py-3 px-5 rounded-md cursor-pointer hover:border-blue-800 hover:border hover:bg-blue-200  hover:text-blue-800"
-              onClick={() => setGroupBuyToActive(null)}
-            >
-              Go Back
-            </button>
-            {isOwner && //only seller can withdraw funds
-              hasGroupBuyEnded && //can only withdraw after group buy ends
-              activeGroupBuy != null &&
-              activeGroupBuy.buyers.length > 0 ? ( //withdraw if there are buyers
-              <button
+                {isOwner && //only seller can withdraw funds
+                    hasGroupBuyEnded && //can only withdraw after group buy ends
+                    activeGroupBuy != null &&
+                    activeGroupBuy.buyers.length > 0 ? ( //withdraw if there are buyers
+                    <button
 
-                onClick={() => withdrawFunds(activeGroupBuy)}
-              >
-                Withdraw Funds
-              </button>
-            ) : null}
-          </div>
+                        onClick={() => withdrawFunds(activeGroupBuy)}
+                    >
+                        Withdraw Funds
+                    </button>
+                ) : null}
+            </div>
         </div>
-
-      </div>
-    );
+    </div>
+);
   }
 
   const customStyles = {
@@ -569,7 +570,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-gradient-to-r text-black from-violet-600 to-slate-100 min-h-screen overflow-hidden pb-14">
+    <div className="bg-gradient-to-r text-black from-violet-600 to-slate-100 min-h-screen overflow-hidden">
       <Head>
         <title>Group Buying Web App</title>
 
@@ -586,14 +587,14 @@ export default function Home() {
         }}
       >
         <div className="bg-violet-800 flex items-center justify-between text-white  py-6">
-          <div className="px-5 ml-[500px]">
-            <span className="w-40 cursor-pointer text-2xl font-semibold"><HiUserGroup className="inline-block mr-2 text-6xl text-blue-600 group-hover:text-white" />groupbuy</span>
-          </div>
-          <div className="flex items-center pr-6">
-            <IoWalletSharp className="text-[50px] px-2" />
-            {`${currentWalletAddress}`}
-          </div>
-        </div>
+                <div className="px-5 ml-[500px]">
+                    <span className="w-40 cursor-pointer text-2xl font-semibold"><HiUserGroup className="inline-block mr-2 text-6xl text-blue-600 group-hover:text-white" />groupbuy</span>
+                </div>
+                <div className="flex items-center pr-6">
+                    <IoWalletSharp className="text-[50px] px-2" />
+                    {`${currentWalletAddress}`}
+                </div>
+            </div>
 
         <Modal
           isOpen={isLoading}
@@ -604,7 +605,7 @@ export default function Home() {
           {loadedData}
         </Modal>
 
-        <h2 className={styles.allGroupBuy}>
+        {/* <h2 className={styles.allGroupBuy}>
           {(() => {
             if (activeGroupBuy == null) {
               return <div>{`All Group buys`}</div>;
@@ -612,10 +613,10 @@ export default function Home() {
               return <div>{`Product`}</div>;
             }
           })()}
-        </h2>
+        </h2> */}
         {/* <div>{allGroupBuys.map((groupBuy) => renderGroupBuys(groupBuy))}</div> */}
 
-        <div>
+        {/* <div>
           {activeGroupBuy != null ? (
             renderSpecificGroupBuy(activeGroupBuy, currentWalletAddress)
           ) : (
@@ -623,9 +624,115 @@ export default function Home() {
               {allGroupBuys.map((groupBuy) => renderGroupBuys(groupBuy))}
             </div>
           )}
+        </div> */}
+
+        <div className="mx-auto w-[800px] my-10 p-[40px] bg-slate-300 shadow-slate-500 shadow-md  text-white rounded-md overflow-hidden">
+          <h2 className="text-center text-2xl text-black font-bold">Create Group buy</h2>
+
+          <div style={{ margin: "20px" }}>
+            <label className="text-black font-bold">Product Name</label>
+            <input
+              type="text"
+              placeholder="Enter your product name"
+              onChange={(e) =>
+                setGroupBuyFields({
+                  ...createGroupBuyFields,
+                  productName: e.target.value,
+                })
+              }
+              value={createGroupBuyFields.productName}
+              style={{
+                padding: "15px",
+                textAlign: "center",
+                display: "block",
+                width: "400px",
+                backgroundColor: "black",
+                color: "white",
+                borderRadius: "10px"
+              }}
+            />
+          </div>
+
+          <div style={{ margin: "20px" }}>
+            <label className="text-black font-bold">Product Description</label>
+            <input
+              type="text"
+              placeholder="Enter your product description"
+              onChange={(e) =>
+                setGroupBuyFields({
+                  ...createGroupBuyFields,
+                  productDescription: e.target.value,
+                })
+              }
+              value={createGroupBuyFields.productDescription}
+              style={{
+                padding: "15px",
+                textAlign: "center",
+                display: "block",
+                width: "400px",
+                backgroundColor: "black",
+                color: "white",
+                borderRadius: "10px"
+              }}
+            />
+          </div>
+
+          <div style={{ margin: "20px" }}>
+            <label className="text-black font-bold">Set Price (USDC)</label>
+            <input
+              type="number"
+              placeholder="Price"
+              onChange={(e) =>
+                setGroupBuyFields({
+                  ...createGroupBuyFields,
+                  price: parseFloat(e.target.value),
+                })
+              }
+              value={createGroupBuyFields.price}
+              style={{
+                padding: "15px",
+                textAlign: "center",
+                display: "block",
+                backgroundColor: "black",
+                color: "white",
+                width: "400px",
+                borderRadius: "10px"
+              }}
+            />
+          </div>
+
+          <div style={{ margin: "20px" }}>
+            <label className="text-black font-bold">Duration in Mins</label>
+            <input
+              type="number"
+              placeholder="End Time(mins)"
+              onChange={(e) =>
+                setGroupBuyFields({
+                  ...createGroupBuyFields,
+                  endTime: parseInt(e.target.value),
+                })
+              }
+              value={createGroupBuyFields.endTime}
+              style={{
+                padding: "15px",
+                textAlign: "center",
+                display: "block",
+                backgroundColor: "black",
+                color: "white",
+                width: "400px",
+                borderRadius: "10px"
+              }}
+            />
+          </div>
+
+          <button
+            type="button"
+            className="bg-blue-800 text-white py-3 px-5 ml-5 rounded-md cursor-pointer hover:border-blue-800 hover:border hover:bg-blue-200  hover:text-blue-800"
+            onClick={() => createGroupBuy()}
+          >
+            Create Group Buy
+          </button>
         </div>
-
-
       </div>
     </div>
   );

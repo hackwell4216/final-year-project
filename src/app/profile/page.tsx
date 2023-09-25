@@ -73,7 +73,7 @@ function UserProfile() {
   })
 
   return (
-    <div className="border bg-cover bg-center bg-gradient-to-r from-violet-600 to-slate-100 min-h-screen ">
+    <div className=" bg-cover bg-center bg-gradient-to-r from-violet-600 to-slate-100 min-h-screen overflow-hidden">
       {loading ? (
         <div className={styles.loaderContainer}>
           <div className={styles.spinner}></div>
