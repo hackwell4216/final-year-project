@@ -64,6 +64,18 @@ function SideNavbar() {
                                 </div>
                             </Link>
 
+                            <Link href="/activeGroups">
+                                <div className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:border hover:border-violet-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
+
+                                    <HiUserGroup className="text-2xl text-violet-600 " />
+                                    <h3 className="text-base text-violet-800  font-semibold ">
+                                        Active Group
+                                    </h3>
+
+                                </div>
+                            </Link>
+
+
                         </div>
                         {/* setting  */}
                         <div className=" my-4 border-b border-violet-100 pb-4">

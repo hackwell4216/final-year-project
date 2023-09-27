@@ -5,6 +5,7 @@ import styles from '../Home.module.css';
 import { useRouter } from "next/navigation";
 import axios, { Axios } from "axios";
 import { toast, Toaster } from 'react-hot-toast';
+import Image from 'next/image';
 
 
 export default function SignupPage() {
@@ -128,7 +129,7 @@ export default function SignupPage() {
                 >
                     {/* right side  */}
                     <div className="relative">
-                        <img
+                        <Image
                             src="/create-account-image.jpg"
                             alt="img"
                             className="w-[650px] h-[500px] hidden mt-24 rounded-r-2xl md:block object-cover"

@@ -33,19 +33,6 @@ export default function VerifyEmailPage() {
     }, []);
 
 
-    const verifyUserEmail = async () => {
-        try {
-            await axios.post('/api/users/verifyemail', { token })
-            setVerified(true);
-
-        } catch (error) {
-            setError(true);
-            console.log(error);
-
-        }
-
-    }
-
     const getUserDetails = async () => {
         try {
 
@@ -76,10 +63,23 @@ export default function VerifyEmailPage() {
     useEffect(() => {
         getUserDetails();
         
-    }, []);
+    });
 
 
     useEffect(() => {
+        const verifyUserEmail = async () => {
+            try {
+                await axios.post('/api/users/verifyemail', { token })
+                setVerified(true);
+    
+            } catch (error) {
+                setError(true);
+                console.log(error);
+    
+            }
+    
+        }
+
         if (token.length > 0) {
             verifyUserEmail();
         }
@@ -108,7 +108,7 @@ export default function VerifyEmailPage() {
                     </div>
                     <div className="bg-blue-100 rounded-md lg:m-64 h-80 p-6 md:p-3 md:w-[800px] md:mx-auto md:mt-20">
                         <p className="text-gray-600 text-2xl ml-20">One more step!</p>
-                        <p className="text-gray-600 text-2xl ml-20 mb-10">Let's verify your email address.</p>
+                        <p className="text-gray-600 text-2xl ml-20 mb-10">{'Let\'s verify your email address.'}</p>
                         <p className="text-gray-600 text-xl ml-20">{`${user.firstname}, to activate your account, simply click on the verification link below.`}</p>
 
                         <div onClick={activateAccount} className="bg-blue-600 w-56 text-center p-4 mx-auto rounded-md font-normal cursor-pointer mt-10">Activate My Account</div>

@@ -1,3 +1,4 @@
+"use client"
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../Home.module.css";
@@ -428,7 +429,7 @@ export default function Home() {
     );
 
     return (
-      <div className="border-2 w-[800px] mx-auto mt-10 bg-slate-300 rounded-md px-10 py-10 shadow-slate-500 shadow-md">
+      <div className="w-[800px] mx-auto mt-10 bg-slate-300 rounded-md px-10 py-10 shadow-slate-500 shadow-md">
         <div>
           <div>
             <p className="py-1">
@@ -606,7 +607,7 @@ export default function Home() {
 
         <h2 className={styles.allGroupBuy}>
           {(() => {
-            if (activeGroupBuy == null) {
+            if (activeGroupBuy !== null) {
               return <div>{`All Group buys`}</div>;
             } else {
               return <div>{`Product`}</div>;
@@ -621,13 +622,11 @@ export default function Home() {
           ) : (
             <div>
               {allGroupBuys
-                .filter((groupBuy) => groupBuy.groupBuyState === 1) // Filter active group buys
+                .filter((groupBuy) => groupBuy.groupBuyState === 0) // Filter active group buys
                 .map((activeGroupBuy) => renderGroupBuys(activeGroupBuy))}
             </div>
           )}
         </div>
-
-
       </div>
     </div>
   );

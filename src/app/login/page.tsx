@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import styles from "../Home.module.css";
 import toast, { Toaster } from "react-hot-toast";
+import Image from 'next/image';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -30,7 +31,7 @@ export default function LoginPage() {
       setIsLoading(true);
       const response = await axios.post("/api/users/login", user);
       console.log("Login success", response.data);
-      router.push("/dashboard"); 
+      router.push("/dashboard");
       setIsLoading(false);
       toast.success("Login successful");
     } catch (error: any) {
@@ -39,7 +40,7 @@ export default function LoginPage() {
     }
   };
 
-  const onForgotPassword = () => {};
+  const onForgotPassword = () => { };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -108,7 +109,7 @@ export default function LoginPage() {
             </button>
 
             <div className="text-center text-gray-500 hover:cursor-pointer ">
-              Don't have an account?
+              Don&apos;t have an account?
               <span className="font-bold text-black hover:text-blue-600">
                 {" "}
                 <Link href="/signup">Sign up</Link>{" "}
@@ -117,9 +118,11 @@ export default function LoginPage() {
           </div>
           {/* right side */}
           <div className="relative">
-            <img
+            <Image
               src="/joined_hands.jpg"
               alt="img"
+              width={450}
+              height={100}
               className="w-[450px] h-full hidden rounded-r-2xl md:block object-cover"
             />
           </div>
