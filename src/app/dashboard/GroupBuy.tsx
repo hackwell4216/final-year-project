@@ -400,7 +400,12 @@ export default function Home() {
 
         <div className="bg-red-600 text-slate-50 h-[70px] w-[200px] md:left-[450px] rounded-md relative flex items-center shadow-md shadow-red-400">
           <span className="ml-3 text-xl">Discount</span>
+         
+         
+          {/* Discount Area */}
           <span className="ml-4 text-4xl">{`${Math.floor(Math.random() * (20 - 5 + 1)) + 5}%`}</span>
+
+          {/* Discount Area */}
         </div>
       </div>
     );
