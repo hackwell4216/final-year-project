@@ -132,6 +132,8 @@ export default function SignupPage() {
                         <Image
                             src="/create-account-image.jpg"
                             alt="img"
+                            width={450}
+                            height={500}
                             className="w-[650px] h-[500px] hidden mt-24 rounded-r-2xl md:block object-cover"
                         />
                     </div>
