@@ -36,7 +36,8 @@ To get started with GroupBuy, follow these steps:
 4. **Start the development server:**
 
    ```bash
-   npm run dev
+   npm run build
+   npm run start
    ```
 
    This will launch the application locally, and you can access it in your web browser at `http://localhost:3000`.
